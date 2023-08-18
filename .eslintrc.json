@@ -1,0 +1,19 @@
+{
+  "env": {
+    "commonjs": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": ["standard"],
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "rules": {
+    "valid-typeof": "off",
+    "semi": ["error", "always"],
+    "no-throw-literal": "off",
+    "jest/expect-expect": "off",
+    "camelcase": "off",
+    "no-new": "off"
+  }
+}
