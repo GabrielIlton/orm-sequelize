@@ -1,5 +1,5 @@
 const rulesByType = require('./ValidationsRules');
-const Errors = require('../helpers/HTTP/Errors');
+const { Errors } = require('../utils/HTTP');
 const Validator = require('./Validator');
 
 module.exports = ({ fieldsAndRules = [] }) => {

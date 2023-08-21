@@ -1,5 +1,5 @@
 const DateHelper = require('../helpers/DateHelper');
-const { Errors } = require('../helpers/HTTP');
+const { Errors } = require('../utils/HTTP');
 
 module.exports = {
   required ({ fieldKey, fieldValue }) {
