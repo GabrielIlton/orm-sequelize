@@ -40,7 +40,6 @@ module.exports = {
   },
 
   isDate ({ fieldKey, fieldValue }) {
-    const dateHelper = new DateHelper();
     const dateIsValid = dateHelper.isValid(fieldValue);
 
     if (!dateIsValid) return Errors.generic.invalidField({ fieldKey });
