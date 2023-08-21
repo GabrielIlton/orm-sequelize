@@ -3,11 +3,11 @@ const { Errors } = require('../utils/HTTP');
 const Validator = require('./Validator');
 
 module.exports = ({ fieldsAndRules = [] }) => {
-  for (const fieldToValidate of fieldsAndRules) {
-    if (fieldToValidate.required) {
-      const errorsFounded = handleValidations(fieldToValidate);
-      if (errorsFounded) return errorsFounded;
-    }
+  const fieldsToValidateRequired = fieldsAndRules.filter(fieldToValidate => fieldToValidate.required);
+
+  for (const fieldToValidate of fieldsToValidateRequired) {
+    const errorsFounded = handleValidations(fieldToValidate);
+    if (errorsFounded) return errorsFounded;
   }
 };
 
@@ -45,8 +45,7 @@ const handleValidations = field => {
   if (!rulesToFollow) return Errors.generic.notPossibleValidate({ field: field.name });
 
   for (const ruleToFollow in rulesToFollow) {
-    const objectToSendOnValidator = makeObjectToSendOnValidator[ruleToFollow]({ rulesToFollow, field });
-    const error = !objectToSendOnValidator ? null : Validator[ruleToFollow](objectToSendOnValidator);
+    const error = Validator[ruleToFollow](makeObjectToSendOnValidator[ruleToFollow]({ rulesToFollow, field }));
 
     if (error) return error;
   }
