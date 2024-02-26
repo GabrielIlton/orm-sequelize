@@ -2,27 +2,31 @@ const { basename, resolve } = require('path');
 const Sequelize = require('sequelize');
 const { readdirSync } = require('fs');
 
-const db = {};
+module.exports = () => {
+  const db = {};
 
-const { sequelize } = global.env;
+  const { sequelize } = global.env;
 
-const currentFileName = basename(__filename);
-const modelsPath = '../models';
+  const currentFileName = basename(__filename);
+  const modelsPath = '../models';
 
-readdirSync(resolve(__dirname, modelsPath))
-  .filter(file => file !== currentFileName)
-  .forEach(file => {
-    const model = require(`${modelsPath}/${file}`)(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
+  readdirSync(resolve(__dirname, modelsPath))
+    .filter(file => file !== currentFileName)
+    .forEach(file => {
+      const model = require(`${modelsPath}/${file}`)(sequelize, Sequelize.DataTypes);
+      db[model.name] = model;
+    });
 
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) db[modelName].associate(db);
-});
+  const models = {};
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+  for (const modelName in db) {
+    if (db[modelName].associate) db[modelName].associate(db);
 
-const { People: PeopleModel, Levels: LevelsModel, Classes: ClassesModel, Enrollments: EnrollmentsModel } = db;
+    Object.assign(models, { [`${modelName}Model`]: db[modelName] });
+  }
 
-module.exports = { PeopleModel, LevelsModel, ClassesModel, EnrollmentsModel };
+  db.sequelize = sequelize;
+  db.Sequelize = Sequelize;
+
+  return { ...models };
+};

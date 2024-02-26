@@ -23,4 +23,8 @@ module.exports = class EnrollmentsRepository extends Repository {
       where: filters
     });
   }
+
+  async updateWithTransaction ({ filters, modify, transaction }) {
+    return this.model.update(modify, { where: filters }, { transaction });
+  }
 };

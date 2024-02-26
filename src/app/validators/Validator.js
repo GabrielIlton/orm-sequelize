@@ -4,12 +4,10 @@ const { Errors } = require('../utils/HTTP');
 module.exports = {
   required ({ fieldKey, fieldValue }) {
     if (!fieldValue && fieldValue !== 0) return Errors.generic.missingParamError({ fieldKey });
-    return false;
   },
 
   length ({ fieldKey, fieldValue, valueLength }) {
     if (!fieldValue || fieldValue.length !== valueLength) return Errors.generic.invalidLength({ fieldKey, valueLength });
-    return false;
   },
 
   maxLength ({ fieldKey, fieldValue, max }) {
@@ -40,7 +38,7 @@ module.exports = {
   },
 
   isDate ({ fieldKey, fieldValue }) {
-    const dateIsValid = dateHelper.isValid(fieldValue);
+    const dateIsValid = DateHelper.isValid(fieldValue);
 
     if (!dateIsValid) return Errors.generic.invalidField({ fieldKey });
   },

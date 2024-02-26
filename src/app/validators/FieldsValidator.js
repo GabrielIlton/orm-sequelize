@@ -38,7 +38,7 @@ const makeObjectToSendOnValidator = {
 };
 
 const handleValidations = field => {
-  const error = Validator.required(makeObjectToSendOnValidator.required({ field }));
+  const error = Validator.required({ fieldKey: field.name, fieldValue: field.value });
   if (error) return error;
 
   const rulesToFollow = rulesByType[field.type];

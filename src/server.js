@@ -4,10 +4,14 @@ const { PORT } = require('./config/Environments');
 const DatabaseHelper = require('./infra/helpers/DatabaseHelper');
 
 async function Main () {
-  await DatabaseHelper.open();
+  try {
+    await DatabaseHelper.open();
 
-  const App = require('./main/App');
-  App.listen(PORT, () => console.info(`Listening at https://[::]:${PORT}`));
+    const App = require('./main/App');
+    App.listen(PORT, () => console.info(`Listening at https://[::]:${PORT}`));
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 Main();

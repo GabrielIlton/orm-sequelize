@@ -1,4 +1,3 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
   const People = sequelize.define('People', {
     name: {
@@ -26,9 +25,9 @@ module.exports = (sequelize, DataTypes) => {
     scopes: { all: { where: { } } }
   });
 
-  People.associate = function (models) {
-    People.hasMany(models.Classes, { foreignKey: 'teacher_id' });
-    People.hasMany(models.Enrollments, {
+  People.associate = function ({ Classes, Enrollments }) {
+    People.hasMany(Classes, { foreignKey: 'teacher_id' });
+    People.hasMany(Enrollments, {
       foreignKey: 'student_id',
       scope: { status: 'confirmado' },
       as: 'classEnrollments'

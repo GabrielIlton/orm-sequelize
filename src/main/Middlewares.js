@@ -1,6 +1,7 @@
-const { ContentTypeMiddleware, CorsMiddleware, JSONParserMiddleware } = require('../middlewares');
+const { ContentTypeMiddleware, CorsMiddleware, JSONParserMiddleware, ViewMiddleware } = require('../middlewares');
 
-module.exports = app => {
+module.exports = (app, Static) => {
+  app.use('/view', ViewMiddleware(Static));
   app.use(ContentTypeMiddleware);
   app.use(CorsMiddleware);
   app.use(JSONParserMiddleware);

@@ -1,26 +1,14 @@
-module.exports = ({ name, active, email, role }) => ([
+module.exports = ({ teacherId, levelId }) => ([
   {
     required: true,
-    value: name,
-    name: 'nome',
-    type: 'name'
+    value: teacherId,
+    name: 'identificador do professor',
+    type: 'id'
   },
   {
     required: true,
-    value: active,
-    name: 'ativo',
-    type: 'boolean'
-  },
-  {
-    required: true,
-    value: email,
-    name: 'email',
-    type: 'email'
-  },
-  {
-    required: true,
-    value: role,
-    name: 'estudante ou professor',
-    type: 'role'
+    value: levelId,
+    name: 'identificador do nível',
+    type: 'id'
   }
 ]);
